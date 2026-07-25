@@ -10,7 +10,7 @@ export function CredibilitySection() {
           A Uniradiologia Cursos e Treinamentos nasceu em 2017 com a missão de viabilizar educação
           continuada e prestação de serviços na área da radiologia. Já formamos centenas de
           tecnólogos, técnicos e profissionais em turmas práticas e conteúdos 100% aplicáveis ao
-          dia a dia da clínica.
+          dia a dia da radiologia.
         </p>
       </div>
 
