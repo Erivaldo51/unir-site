@@ -1,0 +1,47 @@
+export type FotoGaleria = {
+  src: string;
+  alt: string;
+};
+
+// Fotos reaproveitadas do site atual (unircursosonline.com.br) — eventos e treinamentos.
+export const galeria: FotoGaleria[] = [
+  { src: "/galeria/evento-01.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-02.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-03.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-04.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-05.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-06.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-07.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-08.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-09.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-10.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-11.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-12.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-13.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-14.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-15.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-16.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-17.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-18.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-19.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-20.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-21.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-22.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-23.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-24.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-25.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-26.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-27.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-28.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-29.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-30.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-31.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-32.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-33.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-34.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-35.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-36.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-37.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-38.jpg", alt: "Evento ou treinamento Uniradiologia" },
+  { src: "/galeria/evento-39.jpg", alt: "Evento ou treinamento Uniradiologia" },
+];
