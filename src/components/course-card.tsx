@@ -1,9 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { Curso } from "@/data/cursos";
+import { trackCheckoutClick } from "@/lib/analytics";
 
 export function CourseCard({ curso }: { curso: Curso }) {
   const disponivel = curso.checkoutUrl !== null;
@@ -48,6 +51,7 @@ export function CourseCard({ curso }: { curso: Curso }) {
             href={curso.checkoutUrl!}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackCheckoutClick(curso.nome)}
             className={cn(buttonVariants({ size: "lg" }), "w-full")}
           >
             {curso.ctaLabel ?? "Ver detalhes"}

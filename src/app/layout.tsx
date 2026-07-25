@@ -8,6 +8,7 @@ import {
   META_PIXEL_ID,
   SITE_NAME,
   SITE_URL,
+  WHATSAPP_NUMBER,
 } from "@/lib/site-config";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
@@ -85,6 +86,16 @@ export default function RootLayout({
               name: SITE_NAME,
               url: SITE_URL,
               logo: `${SITE_URL}/identidade/unir-logo-horizontal-1200.png`,
+              image: `${SITE_URL}/identidade/unir-logo-horizontal-1200.png`,
+              telephone: `+${WHATSAPP_NUMBER}`,
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "Av. João Machado, 1234 - Centro",
+                addressLocality: "João Pessoa",
+                addressRegion: "PB",
+                postalCode: "58013-522",
+                addressCountry: "BR",
+              },
               sameAs: [INSTAGRAM_URL],
             }),
           }}

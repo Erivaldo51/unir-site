@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { MapPin, Phone } from "lucide-react";
+import { WhatsappTrackedLink } from "@/components/whatsapp-tracked-link";
 import { InstagramIcon, YoutubeIcon } from "@/components/icons/brand-icons";
 import {
   ADDRESS,
@@ -37,9 +38,9 @@ export function SiteFooter() {
           <ul className="space-y-2">
             <li className="flex items-start gap-2">
               <Phone className="mt-0.5 size-4 shrink-0 text-unir-amber-press" />
-              <a href={buildWhatsappLink()} target="_blank" rel="noopener noreferrer" className="hover:text-unir-ink">
+              <WhatsappTrackedLink href={buildWhatsappLink()} origem="footer" className="hover:text-unir-ink">
                 Fale com a Bianca no WhatsApp
-              </a>
+              </WhatsappTrackedLink>
             </li>
             <li className="flex items-start gap-2">
               <MapPin className="mt-0.5 size-4 shrink-0 text-unir-amber-press" />

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { buildWhatsappLink } from "@/lib/whatsapp";
+import { WhatsappTrackedLink } from "@/components/whatsapp-tracked-link";
 
 export function Hero() {
   return (
@@ -30,17 +31,16 @@ export function Hero() {
           <Link href="/cursos" className={cn(buttonVariants({ size: "lg" }), "px-6 text-base")}>
             Ver todos os cursos
           </Link>
-          <a
+          <WhatsappTrackedLink
             href={buildWhatsappLink("Olá! Vim pelo site e gostaria de saber mais sobre os cursos.")}
-            target="_blank"
-            rel="noopener noreferrer"
+            origem="hero"
             className={cn(
               buttonVariants({ variant: "outline", size: "lg" }),
               "border-white/20 bg-transparent px-6 text-base text-white hover:bg-white/10 hover:text-white"
             )}
           >
             Falar com a Bianca
-          </a>
+          </WhatsappTrackedLink>
         </div>
       </div>
     </section>

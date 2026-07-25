@@ -4,6 +4,7 @@ import { InstagramIcon } from "@/components/icons/brand-icons";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { buildWhatsappLink } from "@/lib/whatsapp";
+import { WhatsappTrackedLink } from "@/components/whatsapp-tracked-link";
 import { ADDRESS, CNPJ, INSTAGRAM_URL, MAPS_URL, WHATSAPP_GROUP_TOMOGRAFIA_URL } from "@/lib/site-config";
 
 export const metadata: Metadata = {
@@ -21,10 +22,9 @@ export default function ContatoPage() {
       </p>
 
       <div className="mt-8 grid gap-4">
-        <a
+        <WhatsappTrackedLink
           href={buildWhatsappLink("Olá! Vim pelo site e gostaria de saber mais sobre os cursos.")}
-          target="_blank"
-          rel="noopener noreferrer"
+          origem="contato"
           className="flex items-center gap-4 rounded-xl border border-unir-mist bg-white p-5 transition-colors hover:border-unir-amber"
         >
           <MessageCircle className="size-6 text-state-success" />
@@ -32,7 +32,7 @@ export default function ContatoPage() {
             <p className="font-medium text-unir-ink">WhatsApp</p>
             <p className="text-sm text-unir-slate">Fale agora com a Bianca</p>
           </div>
-        </a>
+        </WhatsappTrackedLink>
 
         <a
           href={INSTAGRAM_URL}
@@ -74,9 +74,9 @@ export default function ContatoPage() {
       <p className="mt-10 text-center text-xs text-unir-gray">CNPJ {CNPJ}</p>
 
       <div className="mt-6 flex justify-center">
-        <a href={buildWhatsappLink()} target="_blank" rel="noopener noreferrer" className={cn(buttonVariants({ size: "lg" }))}>
+        <WhatsappTrackedLink href={buildWhatsappLink()} origem="contato_cta_final" className={cn(buttonVariants({ size: "lg" }))}>
           Falar com a Bianca agora
-        </a>
+        </WhatsappTrackedLink>
       </div>
     </section>
   );
