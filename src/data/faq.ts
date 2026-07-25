@@ -9,7 +9,7 @@ export const perguntasFrequentes: PerguntaFrequente[] = [
   {
     pergunta: "Os cursos são reconhecidos pelo MEC?",
     resposta:
-      "Os cursos da Uniradiologia são classificados como Cursos Livres de Qualificação Profissional. Essa modalidade é garantida por lei e não exige reconhecimento pelo MEC.",
+      "Os cursos da Uniradiologia são classificados como Cursos Livres de Qualificação Profissional. Essa modalidade não exige reconhecimento pelo MEC.",
   },
   {
     pergunta: "Preciso já atuar na área de radiologia para fazer os cursos?",

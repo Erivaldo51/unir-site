@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Quem Somos",
@@ -10,6 +11,14 @@ export default function QuemSomosPage() {
   return (
     <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
       <h1 className="text-center font-heading text-4xl font-semibold text-unir-ink">Quem somos</h1>
+
+      <div className="mt-8 flex flex-col items-center">
+        <div className="relative size-32 overflow-hidden rounded-full ring-4 ring-unir-amber">
+          <Image src="/identidade/erivaldo-martins.png" alt="Erivaldo Martins" fill className="object-cover" />
+        </div>
+        <p className="mt-3 font-heading text-lg font-semibold text-unir-ink">Erivaldo Martins</p>
+        <p className="text-sm text-unir-gray">Fundador da UNIRadiologia</p>
+      </div>
 
       <div className="mt-8 space-y-5 text-unir-slate">
         <p>
