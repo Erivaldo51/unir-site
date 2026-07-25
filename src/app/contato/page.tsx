@@ -40,7 +40,7 @@ export default function ContatoPage() {
           rel="noopener noreferrer"
           className="flex items-center gap-4 rounded-xl border border-unir-mist bg-white p-5 transition-colors hover:border-unir-amber"
         >
-          <InstagramIcon className="size-6 text-unir-ink" />
+          <InstagramIcon className="size-6 text-unir-amber-press" />
           <div>
             <p className="font-medium text-unir-ink">Instagram</p>
             <p className="text-sm text-unir-slate">@uniradiologia</p>
@@ -53,7 +53,7 @@ export default function ContatoPage() {
           rel="noopener noreferrer"
           className="flex items-center gap-4 rounded-xl border border-unir-mist bg-white p-5 transition-colors hover:border-unir-amber"
         >
-          <MapPin className="size-6 text-unir-ink" />
+          <MapPin className="size-6 text-unir-amber-press" />
           <div>
             <p className="font-medium text-unir-ink">Endereço</p>
             <p className="text-sm text-unir-slate">{ADDRESS}</p>

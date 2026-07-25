@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Menu } from "lucide-react";
@@ -22,6 +23,8 @@ const NAV_ITEMS = [
 ];
 
 export function SiteHeader() {
+  const [menuAberto, setMenuAberto] = useState(false);
+
   return (
     <header className="sticky top-0 z-40 w-full border-b border-unir-mist bg-white/90 backdrop-blur supports-backdrop-filter:bg-white/70">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
@@ -54,7 +57,7 @@ export function SiteHeader() {
           </Link>
         </nav>
 
-        <Sheet>
+        <Sheet open={menuAberto} onOpenChange={setMenuAberto}>
           <SheetTrigger
             className={cn(buttonVariants({ variant: "outline", size: "icon" }), "md:hidden")}
             aria-label="Abrir menu"
@@ -78,6 +81,7 @@ export function SiteHeader() {
                 <Link
                   key={item.href}
                   href={item.href}
+                  onClick={() => setMenuAberto(false)}
                   className="rounded-lg px-3 py-2.5 text-base font-medium text-unir-ink hover:bg-unir-mist"
                 >
                   {item.label}

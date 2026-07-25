@@ -43,5 +43,4 @@ export const galeria: FotoGaleria[] = [
   { src: "/galeria/evento-36.jpg", alt: "Evento ou treinamento Uniradiologia" },
   { src: "/galeria/evento-37.jpg", alt: "Evento ou treinamento Uniradiologia" },
   { src: "/galeria/evento-38.jpg", alt: "Evento ou treinamento Uniradiologia" },
-  { src: "/galeria/evento-39.jpg", alt: "Evento ou treinamento Uniradiologia" },
 ];
