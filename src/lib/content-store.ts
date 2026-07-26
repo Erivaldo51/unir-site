@@ -1,5 +1,6 @@
 import "server-only";
 import { put, list } from "@vercel/blob";
+import { revalidatePath } from "next/cache";
 
 export type Curso = {
   slug: string;
@@ -124,19 +125,20 @@ async function fetchContentFromBlob(): Promise<SiteContent> {
 }
 
 /**
- * Lê o conteúdo direto do Blob, sem camada de cache do Next.
- *
+ * Lê o conteúdo direto do Blob, sem camada de cache do Next no servidor.
  * O conteúdo é pequeno (poucos KB) e o Blob responde em milissegundos, então
- * não vale a pena arriscar inconsistência por causa de cache: já tivemos dois
- * problemas de "salvei e não apareceu na hora" causados por camadas de cache
- * (a CDN do Blob e o Data Cache do Next) demorando a invalidar em produção.
- * Ler direto garante que toda edição no /admin aparece no site imediatamente.
+ * não vale a pena arriscar inconsistência por causa de cache no servidor.
  */
 export const getContent = fetchContentFromBlob;
 
 /**
  * Lê o conteúdo atual, aplica a mutação e salva de volta no Blob.
  * `mutate` pode alterar `draft` in-place ou retornar um novo objeto.
+ *
+ * Sempre chamar de dentro de uma Server Action: além de escrever no Blob,
+ * isso limpa o Router Cache do navegador (`revalidatePath`) — sem isso, a
+ * página pra onde o Server Action redireciona pode continuar mostrando a
+ * versão em cache no cliente mesmo com o dado novo já salvo no servidor.
  */
 export async function updateContent(
   mutate: (draft: SiteContent) => SiteContent | void
@@ -152,6 +154,7 @@ export async function updateContent(
     addRandomSuffix: false,
     allowOverwrite: true,
   });
+  revalidatePath("/", "layout");
 
   return next;
 }
