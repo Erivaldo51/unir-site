@@ -80,6 +80,7 @@ export const cursos: Curso[] = [
     resumo: "Para clínicas de Radiodiagnóstico, odontológicas, estéticas e hospitais organizarem sua documentação sanitária.",
     preco: "R$ 47,00",
     checkoutUrl: "https://pay.kiwify.com.br/Rj3dQVK",
+    destaque: true,
     imagem: "/cursos/documentacao-sanitaria-capa.png",
     imagemFoco: "50% 15%",
   },
