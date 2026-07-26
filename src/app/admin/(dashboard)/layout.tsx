@@ -37,6 +37,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
             <Link
               key={secao.href}
               href={secao.href}
+              prefetch={false}
               className="rounded-lg px-3 py-2 text-sm font-medium text-unir-slate hover:bg-white hover:text-unir-ink"
             >
               {secao.label}

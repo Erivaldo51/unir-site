@@ -17,7 +17,7 @@ export default async function AdminNoticiasPage({
     <div>
       <div className="flex items-center justify-between">
         <h1 className="font-heading text-2xl font-semibold text-unir-ink">Notícias</h1>
-        <Link href="/admin/noticias/novo">
+        <Link href="/admin/noticias/novo" prefetch={false}>
           <Button>Nova fonte</Button>
         </Link>
       </div>
@@ -35,7 +35,7 @@ export default async function AdminNoticiasPage({
               <p className="truncate text-sm text-unir-slate">{item.url}</p>
             </div>
             <div className="flex shrink-0 items-center gap-2">
-              <Link href={`/admin/noticias/${index}`}>
+              <Link href={`/admin/noticias/${index}`} prefetch={false}>
                 <Button variant="outline" size="sm">
                   Editar
                 </Button>

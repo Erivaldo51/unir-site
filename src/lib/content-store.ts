@@ -102,9 +102,51 @@ export type SiteContent = {
 
 const CONTENT_PATHNAME = "content/site-content.json";
 
+const ALL_PATHS = [
+  "/",
+  "/cursos",
+  "/noticias",
+  "/quem-somos",
+  "/contato",
+  "/recursos",
+  "/admin",
+  "/admin/cursos",
+  "/admin/noticias",
+  "/admin/faq",
+  "/admin/recursos",
+  "/admin/galeria",
+  "/admin/textos",
+  "/admin/configuracoes",
+];
+
+// A URL do blob é estável (mesmo pathname, sem sufixo aleatório, sempre
+// sobrescrito no lugar) — resolver uma vez por instância do servidor e
+// reusar evita bater na API de management do Blob (list()) a cada leitura,
+// o que sob carga esbarra em rate limit e derruba a página com 503.
+let cachedContentUrl: string | null = null;
+
+/** Falhas transitórias (rate limit, blip de rede) no Blob não devem virar
+ * um "salvei e não vi a mudança" pro usuário — tenta de novo antes de desistir. */
+async function withRetry<T>(fn: () => Promise<T>, attempts = 3, delayMs = 400): Promise<T> {
+  let lastError: unknown;
+  for (let i = 0; i < attempts; i++) {
+    try {
+      return await fn();
+    } catch (err) {
+      lastError = err;
+      if (i < attempts - 1) {
+        await new Promise((resolve) => setTimeout(resolve, delayMs * (i + 1)));
+      }
+    }
+  }
+  throw lastError;
+}
+
 async function resolveContentUrl(): Promise<string | null> {
-  const { blobs } = await list({ prefix: CONTENT_PATHNAME, limit: 1 });
-  return blobs[0]?.url ?? null;
+  if (cachedContentUrl) return cachedContentUrl;
+  const { blobs } = await withRetry(() => list({ prefix: CONTENT_PATHNAME, limit: 1 }));
+  cachedContentUrl = blobs[0]?.url ?? null;
+  return cachedContentUrl;
 }
 
 async function fetchContentFromBlob(): Promise<SiteContent> {
@@ -117,11 +159,13 @@ async function fetchContentFromBlob(): Promise<SiteContent> {
   // O Blob serve esse arquivo com Cache-Control de 30 dias via CDN — sem um
   // query param único, `cache: "no-store"` só evita o cache do Next, e a CDN
   // do Blob ainda pode responder com uma cópia antiga (quebra o read-your-own-writes).
-  const res = await fetch(`${url}?t=${Date.now()}`, { cache: "no-store" });
-  if (!res.ok) {
-    throw new Error(`Falha ao ler o conteúdo do site no Blob (status ${res.status})`);
-  }
-  return res.json();
+  return withRetry(async () => {
+    const res = await fetch(`${url}?t=${Date.now()}`, { cache: "no-store" });
+    if (!res.ok) {
+      throw new Error(`Falha ao ler o conteúdo do site no Blob (status ${res.status})`);
+    }
+    return res.json();
+  });
 }
 
 /**
@@ -148,13 +192,23 @@ export async function updateContent(
   const result = mutate(draft);
   const next = result ?? draft;
 
-  await put(CONTENT_PATHNAME, JSON.stringify(next, null, 2), {
-    access: "public",
-    contentType: "application/json",
-    addRandomSuffix: false,
-    allowOverwrite: true,
-  });
-  revalidatePath("/", "layout");
+  await withRetry(() =>
+    put(CONTENT_PATHNAME, JSON.stringify(next, null, 2), {
+      access: "public",
+      contentType: "application/json",
+      addRandomSuffix: false,
+      allowOverwrite: true,
+    })
+  );
+
+  // revalidatePath("/", "layout") dispara o refresh de TODAS as rotas já
+  // visitadas na mesma resposta — sob carga isso gerava várias leituras do
+  // Blob simultâneas dentro do próprio request e derrubava a Server Action
+  // com 503. Revalidar cada rota específica é mais pesado de escrever, mas
+  // não tem esse efeito cascata.
+  for (const path of ALL_PATHS) {
+    revalidatePath(path);
+  }
 
   return next;
 }

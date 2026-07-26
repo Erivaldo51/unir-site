@@ -27,6 +27,7 @@ export default async function AdminDashboardPage() {
           <Link
             key={card.href}
             href={card.href}
+            prefetch={false}
             className="rounded-xl border border-unir-mist bg-white p-5 transition-colors hover:border-unir-amber"
           >
             <p className="font-medium text-unir-ink">{card.label}</p>

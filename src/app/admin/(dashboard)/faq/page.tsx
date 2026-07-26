@@ -17,7 +17,7 @@ export default async function AdminFaqPage({
     <div>
       <div className="flex items-center justify-between">
         <h1 className="font-heading text-2xl font-semibold text-unir-ink">Perguntas frequentes</h1>
-        <Link href="/admin/faq/novo">
+        <Link href="/admin/faq/novo" prefetch={false}>
           <Button>Nova pergunta</Button>
         </Link>
       </div>
@@ -32,7 +32,7 @@ export default async function AdminFaqPage({
           <div key={index} className="flex items-center justify-between gap-4 p-4">
             <p className="min-w-0 truncate font-medium text-unir-ink">{item.pergunta}</p>
             <div className="flex shrink-0 items-center gap-2">
-              <Link href={`/admin/faq/${index}`}>
+              <Link href={`/admin/faq/${index}`} prefetch={false}>
                 <Button variant="outline" size="sm">
                   Editar
                 </Button>

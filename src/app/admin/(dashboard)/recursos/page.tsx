@@ -17,7 +17,7 @@ export default async function AdminRecursosPage({
     <div>
       <div className="flex items-center justify-between">
         <h1 className="font-heading text-2xl font-semibold text-unir-ink">Recursos recomendados</h1>
-        <Link href="/admin/recursos/novo">
+        <Link href="/admin/recursos/novo" prefetch={false}>
           <Button>Novo recurso</Button>
         </Link>
       </div>
@@ -35,7 +35,7 @@ export default async function AdminRecursosPage({
               <p className="text-sm text-unir-slate">{item.categoria}</p>
             </div>
             <div className="flex shrink-0 items-center gap-2">
-              <Link href={`/admin/recursos/${index}`}>
+              <Link href={`/admin/recursos/${index}`} prefetch={false}>
                 <Button variant="outline" size="sm">
                   Editar
                 </Button>
