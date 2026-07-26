@@ -107,6 +107,15 @@ const CONTENT_PATHNAME = "content/site-content.json";
 // o que sob carga esbarra em rate limit e derruba a página com 503.
 let cachedContentUrl: string | null = null;
 
+// Guarda o conteúdo recém-escrito por alguns segundos: o Blob tem consistência
+// eventual, então ler de volta logo depois de escrever (exatamente o que
+// acontece ao renderizar a página pra onde a Server Action redireciona) pode
+// pegar a versão antiga. Servir do que acabamos de escrever, nessa mesma
+// instância do servidor, evita essa corrida sem esconder mudanças feitas por
+// outra instância/aba por muito tempo.
+let cachedContent: { data: SiteContent; expiresAt: number } | null = null;
+const CACHE_TTL_MS = 8000;
+
 /** Falhas transitórias (rate limit, blip de rede) no Blob não devem virar
  * um "salvei e não vi a mudança" pro usuário — tenta de novo antes de desistir. */
 async function withRetry<T>(fn: () => Promise<T>, attempts = 3, delayMs = 400): Promise<T> {
@@ -131,7 +140,7 @@ async function resolveContentUrl(): Promise<string | null> {
   return cachedContentUrl;
 }
 
-async function fetchContentFromBlob(): Promise<SiteContent> {
+async function fetchContentFromBlobUncached(): Promise<SiteContent> {
   const url = await resolveContentUrl();
   if (!url) {
     throw new Error(
@@ -150,11 +159,16 @@ async function fetchContentFromBlob(): Promise<SiteContent> {
   });
 }
 
-/**
- * Lê o conteúdo direto do Blob, sem camada de cache do Next no servidor.
- * O conteúdo é pequeno (poucos KB) e o Blob responde em milissegundos, então
- * não vale a pena arriscar inconsistência por causa de cache no servidor.
- */
+async function fetchContentFromBlob(): Promise<SiteContent> {
+  if (cachedContent && cachedContent.expiresAt > Date.now()) {
+    return cachedContent.data;
+  }
+  const data = await fetchContentFromBlobUncached();
+  cachedContent = { data, expiresAt: Date.now() + CACHE_TTL_MS };
+  return data;
+}
+
+/** Lê o conteúdo do site (cacheado por poucos segundos nesta instância — ver `cachedContent`). */
 export const getContent = fetchContentFromBlob;
 
 /**
@@ -183,6 +197,11 @@ export async function updateContent(
       allowOverwrite: true,
     })
   );
+
+  // Guarda o valor que acabamos de escrever direto, sem esperar o Blob
+  // "confirmar" numa leitura — é exatamente essa leitura imediata que sofria
+  // com a consistência eventual do Blob.
+  cachedContent = { data: next, expiresAt: Date.now() + CACHE_TTL_MS };
 
   return next;
 }
