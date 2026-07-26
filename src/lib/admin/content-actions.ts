@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 import { verifySession } from "@/lib/admin/session";
 import { updateContent, type Curso, type LinkAfiliado } from "@/lib/content-store";
 
@@ -54,6 +55,7 @@ export async function saveCurso(formData: FormData): Promise<void> {
     }
   });
 
+  revalidatePath("/admin/cursos");
   redirect("/admin/cursos?status=saved");
 }
 
@@ -63,6 +65,7 @@ export async function deleteCurso(formData: FormData): Promise<void> {
   await updateContent((draft) => {
     draft.cursos = draft.cursos.filter((c) => c.slug !== slug);
   });
+  revalidatePath("/admin/cursos");
   redirect("/admin/cursos?status=deleted");
 }
 
@@ -84,6 +87,7 @@ export async function saveNoticia(formData: FormData): Promise<void> {
       draft.noticias.push(item);
     }
   });
+  revalidatePath("/admin/noticias");
   redirect("/admin/noticias?status=saved");
 }
 
@@ -93,6 +97,7 @@ export async function deleteNoticia(formData: FormData): Promise<void> {
   await updateContent((draft) => {
     draft.noticias.splice(index, 1);
   });
+  revalidatePath("/admin/noticias");
   redirect("/admin/noticias?status=deleted");
 }
 
@@ -112,6 +117,7 @@ export async function saveFaq(formData: FormData): Promise<void> {
       draft.faq.push(item);
     }
   });
+  revalidatePath("/admin/faq");
   redirect("/admin/faq?status=saved");
 }
 
@@ -121,6 +127,7 @@ export async function deleteFaq(formData: FormData): Promise<void> {
   await updateContent((draft) => {
     draft.faq.splice(index, 1);
   });
+  revalidatePath("/admin/faq");
   redirect("/admin/faq?status=deleted");
 }
 
@@ -151,6 +158,7 @@ export async function saveRecurso(formData: FormData): Promise<void> {
       draft.afiliados.push(item);
     }
   });
+  revalidatePath("/admin/recursos");
   redirect("/admin/recursos?status=saved");
 }
 
@@ -160,6 +168,7 @@ export async function deleteRecurso(formData: FormData): Promise<void> {
   await updateContent((draft) => {
     draft.afiliados.splice(index, 1);
   });
+  revalidatePath("/admin/recursos");
   redirect("/admin/recursos?status=deleted");
 }
 
@@ -173,6 +182,7 @@ export async function addFotos(formData: FormData): Promise<void> {
       draft.galeria.push({ src, alt: "Evento ou treinamento Uniradiologia" });
     }
   });
+  revalidatePath("/admin/galeria");
   redirect("/admin/galeria?status=saved");
 }
 
@@ -182,6 +192,7 @@ export async function deleteFoto(formData: FormData): Promise<void> {
   await updateContent((draft) => {
     draft.galeria.splice(index, 1);
   });
+  revalidatePath("/admin/galeria");
   redirect("/admin/galeria?status=deleted");
 }
 
@@ -250,6 +261,7 @@ export async function saveTextos(formData: FormData): Promise<void> {
     };
   });
 
+  revalidatePath("/admin/textos");
   redirect("/admin/textos?status=saved");
 }
 
@@ -273,5 +285,6 @@ export async function saveConfig(formData: FormData): Promise<void> {
     };
   });
 
+  revalidatePath("/admin/configuracoes");
   redirect("/admin/configuracoes?status=saved");
 }

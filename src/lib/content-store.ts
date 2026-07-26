@@ -1,6 +1,5 @@
 import "server-only";
 import { put, list } from "@vercel/blob";
-import { revalidatePath } from "next/cache";
 
 export type Curso = {
   slug: string;
@@ -102,23 +101,6 @@ export type SiteContent = {
 
 const CONTENT_PATHNAME = "content/site-content.json";
 
-const ALL_PATHS = [
-  "/",
-  "/cursos",
-  "/noticias",
-  "/quem-somos",
-  "/contato",
-  "/recursos",
-  "/admin",
-  "/admin/cursos",
-  "/admin/noticias",
-  "/admin/faq",
-  "/admin/recursos",
-  "/admin/galeria",
-  "/admin/textos",
-  "/admin/configuracoes",
-];
-
 // A URL do blob é estável (mesmo pathname, sem sufixo aleatório, sempre
 // sobrescrito no lugar) — resolver uma vez por instância do servidor e
 // reusar evita bater na API de management do Blob (list()) a cada leitura,
@@ -179,10 +161,11 @@ export const getContent = fetchContentFromBlob;
  * Lê o conteúdo atual, aplica a mutação e salva de volta no Blob.
  * `mutate` pode alterar `draft` in-place ou retornar um novo objeto.
  *
- * Sempre chamar de dentro de uma Server Action: além de escrever no Blob,
- * isso limpa o Router Cache do navegador (`revalidatePath`) — sem isso, a
- * página pra onde o Server Action redireciona pode continuar mostrando a
- * versão em cache no cliente mesmo com o dado novo já salvo no servidor.
+ * Não chama revalidatePath aqui de propósito: revalidar várias rotas de
+ * uma vez dentro da própria Server Action gerava várias leituras do Blob
+ * simultâneas na mesma invocação e isso derrubava a chamada com "Connection
+ * closed" (visto nos logs da Vercel). Quem chama `updateContent` deve
+ * revalidar só o(s) caminho(s) que realmente precisa, depois de salvar.
  */
 export async function updateContent(
   mutate: (draft: SiteContent) => SiteContent | void
@@ -200,15 +183,6 @@ export async function updateContent(
       allowOverwrite: true,
     })
   );
-
-  // revalidatePath("/", "layout") dispara o refresh de TODAS as rotas já
-  // visitadas na mesma resposta — sob carga isso gerava várias leituras do
-  // Blob simultâneas dentro do próprio request e derrubava a Server Action
-  // com 503. Revalidar cada rota específica é mais pesado de escrever, mas
-  // não tem esse efeito cascata.
-  for (const path of ALL_PATHS) {
-    revalidatePath(path);
-  }
 
   return next;
 }
