@@ -1,6 +1,5 @@
 import "server-only";
 import { put, list } from "@vercel/blob";
-import { unstable_cache, updateTag } from "next/cache";
 
 export type Curso = {
   slug: string;
@@ -101,7 +100,6 @@ export type SiteContent = {
 };
 
 const CONTENT_PATHNAME = "content/site-content.json";
-const CONTENT_TAG = "site-content";
 
 async function resolveContentUrl(): Promise<string | null> {
   const { blobs } = await list({ prefix: CONTENT_PATHNAME, limit: 1 });
@@ -125,16 +123,20 @@ async function fetchContentFromBlob(): Promise<SiteContent> {
   return res.json();
 }
 
-/** Leitura cacheada — usada pelas páginas públicas. Invalidada via updateTag em toda escrita. */
-export const getContent = unstable_cache(fetchContentFromBlob, ["site-content"], {
-  tags: [CONTENT_TAG],
-});
+/**
+ * Lê o conteúdo direto do Blob, sem camada de cache do Next.
+ *
+ * O conteúdo é pequeno (poucos KB) e o Blob responde em milissegundos, então
+ * não vale a pena arriscar inconsistência por causa de cache: já tivemos dois
+ * problemas de "salvei e não apareceu na hora" causados por camadas de cache
+ * (a CDN do Blob e o Data Cache do Next) demorando a invalidar em produção.
+ * Ler direto garante que toda edição no /admin aparece no site imediatamente.
+ */
+export const getContent = fetchContentFromBlob;
 
 /**
- * Lê o conteúdo atual (sem cache, direto do Blob), aplica a mutação e salva de volta.
+ * Lê o conteúdo atual, aplica a mutação e salva de volta no Blob.
  * `mutate` pode alterar `draft` in-place ou retornar um novo objeto.
- * Só pode ser chamada a partir de uma Server Action (usa `updateTag` para
- * garantir que a própria requisição que salvou já veja o dado novo).
  */
 export async function updateContent(
   mutate: (draft: SiteContent) => SiteContent | void
@@ -150,7 +152,6 @@ export async function updateContent(
     addRandomSuffix: false,
     allowOverwrite: true,
   });
-  updateTag(CONTENT_TAG);
 
   return next;
 }
