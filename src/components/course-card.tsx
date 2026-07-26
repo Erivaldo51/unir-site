@@ -5,10 +5,16 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import type { Curso } from "@/data/cursos";
+import type { Curso, SiteContent } from "@/lib/content-store";
 import { trackCheckoutClick } from "@/lib/analytics";
 
-export function CourseCard({ curso }: { curso: Curso }) {
+export function CourseCard({
+  curso,
+  labels,
+}: {
+  curso: Curso;
+  labels: SiteContent["textos"]["botoes"];
+}) {
   const disponivel = curso.checkoutUrl !== null;
 
   return (
@@ -32,7 +38,7 @@ export function CourseCard({ curso }: { curso: Curso }) {
           </Badge>
           {curso.destaque && (
             <Badge className="bg-unir-amber text-unir-ink hover:bg-unir-amber">
-              Mais procurado
+              {labels.cursoMaisProcurado}
             </Badge>
           )}
         </div>
@@ -44,7 +50,7 @@ export function CourseCard({ curso }: { curso: Curso }) {
       </CardContent>
       <CardFooter className="flex flex-col items-stretch gap-3 border-t-0 bg-transparent px-4">
         <p className="text-base font-semibold text-white">
-          {curso.preco ?? "Consultar valor"}
+          {curso.preco ?? labels.cursoConsultarValor}
         </p>
         {disponivel ? (
           <a
@@ -57,9 +63,7 @@ export function CourseCard({ curso }: { curso: Curso }) {
             {curso.ctaLabel ?? "Ver detalhes"}
           </a>
         ) : (
-          <span className="text-center text-sm text-white/50">
-            Em breve — fale com a Bianca para mais informações
-          </span>
+          <span className="text-center text-sm text-white/50">{labels.cursoEmBreve}</span>
         )}
       </CardFooter>
     </Card>

@@ -3,18 +3,17 @@ import Link from "next/link";
 import { MapPin, Phone } from "lucide-react";
 import { WhatsappTrackedLink } from "@/components/whatsapp-tracked-link";
 import { InstagramIcon, YoutubeIcon } from "@/components/icons/brand-icons";
-import {
-  ADDRESS,
-  CNPJ,
-  INSTAGRAM_URL,
-  LEGAL_NAME,
-  MAPS_URL,
-  SITE_NAME,
-  YOUTUBE_URL,
-} from "@/lib/site-config";
+import { LEGAL_NAME, SITE_NAME } from "@/lib/site-config";
 import { buildWhatsappLink } from "@/lib/whatsapp";
+import type { SiteContent } from "@/lib/content-store";
 
-export function SiteFooter() {
+export function SiteFooter({
+  institucional,
+  config,
+}: {
+  institucional: string;
+  config: SiteContent["config"];
+}) {
   const ano = new Date().getFullYear();
 
   return (
@@ -28,9 +27,7 @@ export function SiteFooter() {
             height={34}
             className="mb-3 h-8 w-auto"
           />
-          <p className="text-sm text-unir-slate">
-            Educação continuada e prestação de serviços na área da radiologia, desde 2017.
-          </p>
+          <p className="text-sm text-unir-slate">{institucional}</p>
         </div>
 
         <div className="text-sm text-unir-slate">
@@ -38,14 +35,18 @@ export function SiteFooter() {
           <ul className="space-y-2">
             <li className="flex items-start gap-2">
               <Phone className="mt-0.5 size-4 shrink-0 text-unir-amber-press" />
-              <WhatsappTrackedLink href={buildWhatsappLink()} origem="footer" className="hover:text-unir-ink">
+              <WhatsappTrackedLink
+                href={buildWhatsappLink(config.whatsappNumber)}
+                origem="footer"
+                className="hover:text-unir-ink"
+              >
                 Fale com a Bianca no WhatsApp
               </WhatsappTrackedLink>
             </li>
             <li className="flex items-start gap-2">
               <MapPin className="mt-0.5 size-4 shrink-0 text-unir-amber-press" />
-              <a href={MAPS_URL} target="_blank" rel="noopener noreferrer" className="hover:text-unir-ink">
-                {ADDRESS}
+              <a href={config.mapsUrl} target="_blank" rel="noopener noreferrer" className="hover:text-unir-ink">
+                {config.address}
               </a>
             </li>
           </ul>
@@ -55,7 +56,7 @@ export function SiteFooter() {
           <h3 className="mb-3 font-heading text-sm font-semibold text-unir-ink">Redes sociais</h3>
           <div className="flex items-center gap-3">
             <a
-              href={INSTAGRAM_URL}
+              href={config.instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
@@ -64,7 +65,7 @@ export function SiteFooter() {
               <InstagramIcon className="size-4" />
             </a>
             <a
-              href={YOUTUBE_URL}
+              href={config.youtubeUrl}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="YouTube"
@@ -78,7 +79,7 @@ export function SiteFooter() {
 
       <div className="border-t border-unir-mist px-4 py-4 text-center text-xs text-unir-gray sm:px-6">
         <p>
-          © {ano} {LEGAL_NAME} — CNPJ {CNPJ}
+          © {ano} {LEGAL_NAME} — CNPJ {config.cnpj}
         </p>
         <p className="mt-1">
           <Link href="/recursos" className="hover:text-unir-slate">Recursos</Link>

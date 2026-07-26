@@ -14,15 +14,13 @@ import {
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 
-const NAV_ITEMS = [
-  { href: "/", label: "Início" },
-  { href: "/cursos", label: "Cursos" },
-  { href: "/noticias", label: "Notícias" },
-  { href: "/quem-somos", label: "Quem Somos" },
-  { href: "/contato", label: "Contato" },
-];
-
-export function SiteHeader() {
+export function SiteHeader({
+  menuItems,
+  ctaVerCursos,
+}: {
+  menuItems: { label: string; href: string }[];
+  ctaVerCursos: string;
+}) {
   const [menuAberto, setMenuAberto] = useState(false);
 
   return (
@@ -40,7 +38,7 @@ export function SiteHeader() {
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
-          {NAV_ITEMS.map((item) => (
+          {menuItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
@@ -53,7 +51,7 @@ export function SiteHeader() {
             href="/cursos"
             className={cn(buttonVariants({ size: "lg" }), "ml-2")}
           >
-            Ver cursos
+            {ctaVerCursos}
           </Link>
         </nav>
 
@@ -77,7 +75,7 @@ export function SiteHeader() {
               </SheetTitle>
             </SheetHeader>
             <nav className="flex flex-col gap-1 px-4">
-              {NAV_ITEMS.map((item) => (
+              {menuItems.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}

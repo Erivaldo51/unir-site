@@ -2,10 +2,16 @@ import { MessageCircle } from "lucide-react";
 import { buildWhatsappLink } from "@/lib/whatsapp";
 import { WhatsappTrackedLink } from "@/components/whatsapp-tracked-link";
 
-export function WhatsappFab() {
+export function WhatsappFab({
+  whatsappNumber,
+  mensagem,
+}: {
+  whatsappNumber: string;
+  mensagem: string;
+}) {
   return (
     <WhatsappTrackedLink
-      href={buildWhatsappLink("Olá! Vim pelo site e gostaria de saber mais sobre os cursos.")}
+      href={buildWhatsappLink(whatsappNumber, mensagem)}
       origem="fab"
       ariaLabel="Falar com a Bianca no WhatsApp"
       className="fixed bottom-5 right-5 z-50 flex items-center gap-2 rounded-full bg-state-success px-4 py-3 text-white shadow-lg shadow-black/15 transition-transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-state-success"
