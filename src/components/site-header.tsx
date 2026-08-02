@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { GraduationCap, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Sheet,
@@ -39,15 +39,21 @@ export function SiteHeader({
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
+          {menuItems[0] && (
+            <Link
+              href={menuItems[0].href}
+              className="rounded-lg px-3 py-2 text-sm font-medium text-unir-slate transition-colors hover:bg-unir-mist hover:text-unir-ink"
+            >
+              {menuItems[0].label}
+            </Link>
+          )}
           <a
             href={MEMBROS_URL}
-            className="rounded-lg p-2 text-unir-slate transition-colors hover:bg-unir-mist hover:text-unir-ink"
-            aria-label="Área de Membros"
-            title="Área de Membros"
+            className="rounded-lg px-3 py-2 text-sm font-semibold text-unir-amber-press transition-colors hover:text-unir-ink"
           >
-            <GraduationCap className="size-5" />
+            Área de Membros
           </a>
-          {menuItems.map((item) => (
+          {menuItems.slice(1).map((item) => (
             <Link
               key={item.href}
               href={item.href}
@@ -84,15 +90,23 @@ export function SiteHeader({
               </SheetTitle>
             </SheetHeader>
             <nav className="flex flex-col gap-1 px-4">
+              {menuItems[0] && (
+                <Link
+                  href={menuItems[0].href}
+                  onClick={() => setMenuAberto(false)}
+                  className="rounded-lg px-3 py-2.5 text-base font-medium text-unir-ink hover:bg-unir-mist"
+                >
+                  {menuItems[0].label}
+                </Link>
+              )}
               <a
                 href={MEMBROS_URL}
                 onClick={() => setMenuAberto(false)}
-                className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-base font-medium text-unir-ink hover:bg-unir-mist"
+                className="rounded-lg px-3 py-2.5 text-base font-semibold text-unir-amber-press hover:bg-unir-mist"
               >
-                <GraduationCap className="size-5" />
                 Área de Membros
               </a>
-              {menuItems.map((item) => (
+              {menuItems.slice(1).map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
