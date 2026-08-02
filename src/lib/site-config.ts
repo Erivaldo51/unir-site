@@ -6,3 +6,4 @@
 export const SITE_NAME = "Uniradiologia Academy";
 export const LEGAL_NAME = "Uniradiologia Cursos e Treinamentos";
 export const SITE_URL = "https://www.uniradiologiacademy.com.br";
+export const MEMBROS_URL = "https://app.uniradiologiacademy.com.br";

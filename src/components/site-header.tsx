@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Menu } from "lucide-react";
+import { GraduationCap, Menu } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Sheet,
@@ -13,6 +13,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
+import { MEMBROS_URL } from "@/lib/site-config";
 
 export function SiteHeader({
   menuItems,
@@ -38,6 +39,14 @@ export function SiteHeader({
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
+          <a
+            href={MEMBROS_URL}
+            className="rounded-lg p-2 text-unir-slate transition-colors hover:bg-unir-mist hover:text-unir-ink"
+            aria-label="Área de Membros"
+            title="Área de Membros"
+          >
+            <GraduationCap className="size-5" />
+          </a>
           {menuItems.map((item) => (
             <Link
               key={item.href}
@@ -75,6 +84,14 @@ export function SiteHeader({
               </SheetTitle>
             </SheetHeader>
             <nav className="flex flex-col gap-1 px-4">
+              <a
+                href={MEMBROS_URL}
+                onClick={() => setMenuAberto(false)}
+                className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-base font-medium text-unir-ink hover:bg-unir-mist"
+              >
+                <GraduationCap className="size-5" />
+                Área de Membros
+              </a>
               {menuItems.map((item) => (
                 <Link
                   key={item.href}
