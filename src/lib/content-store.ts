@@ -78,7 +78,6 @@ export type SiteContent = {
     };
     menu: { label: string; href: string }[];
     botoes: {
-      headerVerCursos: string;
       homeVerTodos: string;
       cursoMaisProcurado: string;
       cursoConsultarValor: string;

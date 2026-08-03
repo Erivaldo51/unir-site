@@ -154,7 +154,6 @@ const content = {
       { label: "Contato", href: "/contato" },
     ],
     botoes: {
-      headerVerCursos: "Ver cursos",
       homeVerTodos: "Ver todos",
       cursoMaisProcurado: "Mais procurado",
       cursoConsultarValor: "Consultar valor",

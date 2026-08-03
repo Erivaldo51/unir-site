@@ -207,14 +207,6 @@ export default async function AdminTextosPage({
           <legend className="mb-1 font-heading text-lg font-semibold text-unir-ink">
             Textos de botões espalhados pelo site
           </legend>
-          <Field label="Botão 'Ver cursos' no menu" htmlFor="botoes_headerVerCursos">
-            <input
-              id="botoes_headerVerCursos"
-              name="botoes_headerVerCursos"
-              defaultValue={textos.botoes.headerVerCursos}
-              className={inputClass}
-            />
-          </Field>
           <Field label="Botão 'Ver todos' (ao lado de Cursos em destaque, na home)" htmlFor="botoes_homeVerTodos">
             <input
               id="botoes_homeVerTodos"

@@ -20,7 +20,6 @@ if (content.textos.botoes) {
 }
 
 content.textos.botoes = {
-  headerVerCursos: "Ver cursos",
   homeVerTodos: "Ver todos",
   cursoMaisProcurado: "Mais procurado",
   cursoConsultarValor: "Consultar valor",

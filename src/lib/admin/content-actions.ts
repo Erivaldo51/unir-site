@@ -253,7 +253,6 @@ export async function saveTextos(formData: FormData): Promise<void> {
     };
     draft.textos.menu = parseMenu(str(formData, "menu"));
     draft.textos.botoes = {
-      headerVerCursos: str(formData, "botoes_headerVerCursos"),
       homeVerTodos: str(formData, "botoes_homeVerTodos"),
       cursoMaisProcurado: str(formData, "botoes_cursoMaisProcurado"),
       cursoConsultarValor: str(formData, "botoes_cursoConsultarValor"),
