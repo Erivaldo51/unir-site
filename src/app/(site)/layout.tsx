@@ -76,7 +76,7 @@ export default async function SiteLayout({
             }),
           }}
         />
-        <SiteHeader menuItems={textos.menu} ctaVerCursos={textos.botoes.headerVerCursos} />
+        <SiteHeader menuItems={textos.menu} />
         <main className="flex-1">{children}</main>
         <SiteFooter institucional={textos.footer.institucional} config={config} />
         <WhatsappFab whatsappNumber={config.whatsappNumber} mensagem={config.whatsappMensagemPadrao} />

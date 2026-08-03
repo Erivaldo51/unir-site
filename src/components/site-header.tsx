@@ -17,10 +17,8 @@ import { MEMBROS_URL } from "@/lib/site-config";
 
 export function SiteHeader({
   menuItems,
-  ctaVerCursos,
 }: {
   menuItems: { label: string; href: string }[];
-  ctaVerCursos: string;
 }) {
   const [menuAberto, setMenuAberto] = useState(false);
 
@@ -62,12 +60,6 @@ export function SiteHeader({
               {item.label}
             </Link>
           ))}
-          <Link
-            href="/cursos"
-            className={cn(buttonVariants({ size: "lg" }), "ml-2")}
-          >
-            {ctaVerCursos}
-          </Link>
         </nav>
 
         <Sheet open={menuAberto} onOpenChange={setMenuAberto}>
