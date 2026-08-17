@@ -6,7 +6,7 @@ import type { Curso } from "@/lib/content-store";
 
 export function CursoForm({ curso }: { curso?: Curso }) {
   return (
-    <form action={saveCurso} className="grid max-w-2xl gap-4">
+    <form key={JSON.stringify(curso)} action={saveCurso} className="grid max-w-2xl gap-4">
       <input type="hidden" name="originalSlug" value={curso?.slug ?? ""} />
 
       <Field label="Nome do curso" htmlFor="nome">

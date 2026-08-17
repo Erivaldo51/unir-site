@@ -6,7 +6,7 @@ import type { FonteNoticia } from "@/lib/content-store";
 
 export function NoticiaForm({ item, index }: { item?: FonteNoticia; index?: number }) {
   return (
-    <form action={saveNoticia} className="grid max-w-2xl gap-4">
+    <form key={JSON.stringify(item)} action={saveNoticia} className="grid max-w-2xl gap-4">
       <input type="hidden" name="index" value={index ?? -1} />
 
       <Field label="Título da fonte" htmlFor="titulo">

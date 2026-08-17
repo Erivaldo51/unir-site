@@ -20,7 +20,7 @@ export default async function AdminConfiguracoesPage({
         <StatusBanner status={status} />
       </div>
 
-      <form action={saveConfig} className="mt-6 grid max-w-xl gap-4">
+      <form key={JSON.stringify(config)} action={saveConfig} className="mt-6 grid max-w-xl gap-4">
         <Field label="Número de WhatsApp (com DDI e DDD, só números)" htmlFor="whatsappNumber" hint="Ex: 5583986388435">
           <input id="whatsappNumber" name="whatsappNumber" defaultValue={config.whatsappNumber} className={inputClass} />
         </Field>

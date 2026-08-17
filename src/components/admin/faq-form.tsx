@@ -5,7 +5,7 @@ import type { PerguntaFrequente } from "@/lib/content-store";
 
 export function FaqForm({ item, index }: { item?: PerguntaFrequente; index?: number }) {
   return (
-    <form action={saveFaq} className="grid max-w-2xl gap-4">
+    <form key={JSON.stringify(item)} action={saveFaq} className="grid max-w-2xl gap-4">
       <input type="hidden" name="index" value={index ?? -1} />
 
       <Field label="Pergunta" htmlFor="pergunta">

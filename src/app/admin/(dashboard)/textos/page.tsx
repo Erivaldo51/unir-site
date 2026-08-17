@@ -21,7 +21,7 @@ export default async function AdminTextosPage({
         <StatusBanner status={status} />
       </div>
 
-      <form action={saveTextos} className="mt-6 grid max-w-2xl gap-8">
+      <form key={JSON.stringify(textos)} action={saveTextos} className="mt-6 grid max-w-2xl gap-8">
         <fieldset className="grid gap-4">
           <legend className="mb-1 font-heading text-lg font-semibold text-unir-ink">
             Topo da home (banner)

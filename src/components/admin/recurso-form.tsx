@@ -5,7 +5,7 @@ import type { LinkAfiliado } from "@/lib/content-store";
 
 export function RecursoForm({ item, index }: { item?: LinkAfiliado; index?: number }) {
   return (
-    <form action={saveRecurso} className="grid max-w-2xl gap-4">
+    <form key={JSON.stringify(item)} action={saveRecurso} className="grid max-w-2xl gap-4">
       <input type="hidden" name="index" value={index ?? -1} />
 
       <Field label="Título" htmlFor="titulo">
