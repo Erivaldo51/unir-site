@@ -25,7 +25,7 @@ const CHECKOUT_URL: string | null = null;
 // TODO: subir a Aula 1 no YouTube como "não listado" e colar o ID do vídeo aqui
 // (o que vem depois de "v=" na URL do YouTube). Enquanto estiver vazio, mostramos
 // um aviso de "em breve" no lugar do player.
-const AULA1_YOUTUBE_ID = "";
+const AULA1_YOUTUBE_ID = "n-ebvRD8-1Y";
 
 const PRECO = "R$ 97";
 const NOME_CURSO = "Meios de Contraste em RM e TC";
