@@ -15,19 +15,22 @@ import { buttonVariants } from "@/components/ui/button";
 import { WhatsappTrackedLink } from "@/components/whatsapp-tracked-link";
 import { buildWhatsappLink } from "@/lib/whatsapp";
 import { getContent } from "@/lib/content-store";
-import { SITE_URL } from "@/lib/site-config";
+import { SITE_URL, MEMBROS_URL } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
 
-// TODO: trocar pelo link de checkout do Mercado Pago assim que estiver criado.
-// Enquanto isso, o CTA principal abre o WhatsApp com uma mensagem pronta.
-const CHECKOUT_URL: string | null = null;
+// Checkout de verdade fica na área de membros (Mercado Pago nativo, exige
+// login — Server Action same-origin, não dá pra chamar daqui do site). O CTA
+// leva pra lá; quem não estiver logado cai no /entrar com callbackUrl de
+// volta pra essa mesma página do curso (ver src/app/cursos/[slug]/page.tsx
+// no unir-membros).
+const CHECKOUT_URL = `${MEMBROS_URL}/cursos/meios-de-contraste-na-ressonancia-magnetica-e-tomografia-computadorizada`;
 
 // TODO: subir a Aula 1 no YouTube como "não listado" e colar o ID do vídeo aqui
 // (o que vem depois de "v=" na URL do YouTube). Enquanto estiver vazio, mostramos
 // um aviso de "em breve" no lugar do player.
 const AULA1_YOUTUBE_ID = "n-ebvRD8-1Y";
 
-const PRECO = "R$ 97";
+const PRECO = "R$ 47";
 const NOME_CURSO = "Meios de Contraste em RM e TC";
 const SLUG = "meios-de-contraste-rm-tc";
 
@@ -181,7 +184,7 @@ export default async function MeiosDeContrasteRmTcPage() {
             },
             offers: {
               "@type": "Offer",
-              price: "97.00",
+              price: "47.00",
               priceCurrency: "BRL",
               availability: "https://schema.org/InStock",
               url: `${SITE_URL}/cursos/${SLUG}`,
