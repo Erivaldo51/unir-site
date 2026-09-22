@@ -69,6 +69,24 @@ export async function deleteCurso(formData: FormData): Promise<void> {
   redirect("/admin/cursos?status=deleted");
 }
 
+// Ordem de exibição = ordem do array (não há campo "ordem" nem drag-and-drop
+// na UI) — mover um curso pra cima/baixo troca sua posição com a vizinha.
+export async function moverCurso(formData: FormData): Promise<void> {
+  await verifySession();
+  const slug = str(formData, "slug");
+  const direcao = str(formData, "direcao") === "cima" ? -1 : 1;
+
+  await updateContent((draft) => {
+    const index = draft.cursos.findIndex((c) => c.slug === slug);
+    const alvo = index + direcao;
+    if (index < 0 || alvo < 0 || alvo >= draft.cursos.length) return;
+    [draft.cursos[index], draft.cursos[alvo]] = [draft.cursos[alvo], draft.cursos[index]];
+  });
+
+  revalidatePath("/admin/cursos");
+  redirect("/admin/cursos?status=saved");
+}
+
 // ---------- Notícias ----------
 
 export async function saveNoticia(formData: FormData): Promise<void> {
