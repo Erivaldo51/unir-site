@@ -42,14 +42,14 @@ export default async function AdminCursosPage({
               <form action={moverCurso}>
                 <input type="hidden" name="slug" value={curso.slug} />
                 <input type="hidden" name="direcao" value="cima" />
-                <Button variant="outline" size="sm" disabled={i === 0}>
+                <Button type="submit" variant="outline" size="sm" disabled={i === 0} title="Subir" aria-label="Subir curso">
                   ↑
                 </Button>
               </form>
               <form action={moverCurso}>
                 <input type="hidden" name="slug" value={curso.slug} />
                 <input type="hidden" name="direcao" value="baixo" />
-                <Button variant="outline" size="sm" disabled={i === cursos.length - 1}>
+                <Button type="submit" variant="outline" size="sm" disabled={i === cursos.length - 1} title="Descer" aria-label="Descer curso">
                   ↓
                 </Button>
               </form>
