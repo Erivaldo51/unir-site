@@ -167,7 +167,7 @@ const content = {
     youtubeUrl: "https://www.youtube.com/@ErivaldoMartins-l6t",
     mapsUrl: "https://maps.app.goo.gl/EXQkPEkhnPgvr9q99",
     whatsappGrupoUrl: "https://chat.whatsapp.com/CTKnF6E2CfU4KwtgohWIBJ",
-    address: "Av. João Machado, 1234 - Centro, João Pessoa - PB, CEP: 58013-522",
+    address: "Av. Jesus de Nazaré, 147 - Jaguaribe, João Pessoa - PB, CEP: 58015-340 (Hospital São Vicente de Paulo - São Vicente Imagem - SVI)",
     cnpj: "29.011.684/0001-09",
     ga4Id: "G-VM28X34JLT",
     metaPixelId: "",

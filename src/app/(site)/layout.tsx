@@ -66,10 +66,10 @@ export default async function SiteLayout({
               telephone: `+${config.whatsappNumber}`,
               address: {
                 "@type": "PostalAddress",
-                streetAddress: "Av. João Machado, 1234 - Centro",
+                streetAddress: "Av. Jesus de Nazaré, 147 - Jaguaribe (Hospital São Vicente de Paulo - São Vicente Imagem - SVI)",
                 addressLocality: "João Pessoa",
                 addressRegion: "PB",
-                postalCode: "58013-522",
+                postalCode: "58015-340",
                 addressCountry: "BR",
               },
               sameAs: [config.instagramUrl],
