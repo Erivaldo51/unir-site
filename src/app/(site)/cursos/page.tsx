@@ -6,8 +6,21 @@ import { SITE_URL } from "@/lib/site-config";
 export const metadata: Metadata = {
   title: "Cursos",
   description:
-    "Conheça os cursos de qualificação profissional em radiologia da Uniradiologia Academy: Tomografia Computadorizada, Proteção Radiológica, PPR e Nefroproteção.",
+    "14 cursos de qualificação profissional em radiologia: Tomografia, Ressonância Magnética, Mamografia, Densitometria Óssea, Angiotomografia, Proteção Radiológica, Enfermagem no CDI e mais. 100% online ou presencial em João Pessoa.",
+  alternates: {
+    canonical: `${SITE_URL}/cursos`,
+  },
 };
+
+// Extrai o valor numérico de strings como "R$ 297,00 (PIX ou parcelado no cartão)" -> 297.00
+function precoNumerico(preco: string | null): number | null {
+  if (!preco) return null;
+  const match = preco.match(/(\d{1,3}(?:\.\d{3})*),?(\d{2})?/);
+  if (!match) return null;
+  const inteiro = match[1].replace(/\./g, "");
+  const centavos = match[2] ?? "00";
+  return Number(`${inteiro}.${centavos}`);
+}
 
 export default async function CursosPage() {
   const { cursos, textos } = await getContent();
@@ -21,18 +34,35 @@ export default async function CursosPage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ItemList",
-            itemListElement: cursosDisponiveis.map((curso, index) => ({
-              "@type": "Course",
-              position: index + 1,
-              name: curso.nome,
-              description: curso.resumo,
-              url: `${SITE_URL}/cursos`,
-              provider: {
-                "@type": "Organization",
-                name: "Uniradiologia Academy",
-                sameAs: SITE_URL,
-              },
-            })),
+            itemListElement: cursosDisponiveis.map((curso, index) => {
+              const valor = precoNumerico(curso.preco);
+              return {
+                "@type": "Course",
+                position: index + 1,
+                name: curso.nome,
+                description: curso.resumo,
+                url: curso.checkoutUrl ?? `${SITE_URL}/cursos`,
+                image: curso.imagem,
+                provider: {
+                  "@type": "Organization",
+                  name: "Uniradiologia Academy",
+                  sameAs: SITE_URL,
+                },
+                hasCourseInstance: {
+                  "@type": "CourseInstance",
+                  courseMode: curso.modalidade === "Online" ? "online" : "onsite",
+                },
+                ...(valor !== null && {
+                  offers: {
+                    "@type": "Offer",
+                    price: valor.toFixed(2),
+                    priceCurrency: "BRL",
+                    url: curso.checkoutUrl,
+                    availability: "https://schema.org/InStock",
+                  },
+                }),
+              };
+            }),
           }),
         }}
       />

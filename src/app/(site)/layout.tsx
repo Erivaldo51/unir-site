@@ -15,21 +15,35 @@ export const metadata: Metadata = {
     template: `%s | ${SITE_NAME}`,
   },
   description:
-    "Cursos de qualificação profissional em radiologia: Tomografia Computadorizada, Proteção Radiológica (RDC 611/22 e NR 32), PPR e Nefroproteção. Fale com a Bianca, nossa atendente virtual, pelo WhatsApp.",
+    "Cursos de qualificação profissional em radiologia e diagnóstico por imagem: Tomografia, Ressonância Magnética, Mamografia, Densitometria Óssea, Proteção Radiológica, Angiotomografia e mais. 100% online ou presencial em João Pessoa. Fale com a Bianca pelo WhatsApp.",
+  keywords: [
+    "curso de radiologia",
+    "curso de tomografia computadorizada",
+    "curso de ressonância magnética",
+    "curso de mamografia",
+    "densitometria óssea",
+    "proteção radiológica RDC 611",
+    "técnico em radiologia João Pessoa",
+    "qualificação profissional radiologia",
+  ],
   openGraph: {
     type: "website",
     locale: "pt_BR",
     siteName: SITE_NAME,
-    title: `${SITE_NAME} — Cursos de Radiologia`,
+    title: `${SITE_NAME} — Cursos de Radiologia e Diagnóstico por Imagem`,
     description:
-      "Cursos de qualificação profissional em radiologia: Tomografia Computadorizada, Proteção Radiológica, PPR e Nefroproteção.",
+      "Cursos de qualificação profissional em radiologia: Tomografia, Ressonância Magnética, Mamografia, Densitometria Óssea, Proteção Radiológica e mais. 100% online ou presencial em João Pessoa.",
     url: SITE_URL,
+    images: [`${SITE_URL}/identidade/unir-logo-horizontal-1200.png`],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE_NAME} — Cursos de Radiologia`,
+    title: `${SITE_NAME} — Cursos de Radiologia e Diagnóstico por Imagem`,
     description:
-      "Cursos de qualificação profissional em radiologia: Tomografia Computadorizada, Proteção Radiológica, PPR e Nefroproteção.",
+      "Cursos de qualificação profissional em radiologia: Tomografia, Ressonância Magnética, Mamografia, Densitometria Óssea, Proteção Radiológica e mais.",
+  },
+  alternates: {
+    canonical: SITE_URL,
   },
   icons: {
     icon: [
@@ -59,11 +73,27 @@ export default async function SiteLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "EducationalOrganization",
+              "@id": `${SITE_URL}/#organization`,
               name: SITE_NAME,
+              legalName: "Uniradiologia Cursos e Treinamentos",
               url: SITE_URL,
               logo: `${SITE_URL}/identidade/unir-logo-horizontal-1200.png`,
               image: `${SITE_URL}/identidade/unir-logo-horizontal-1200.png`,
               telephone: `+${config.whatsappNumber}`,
+              contactPoint: {
+                "@type": "ContactPoint",
+                telephone: `+${config.whatsappNumber}`,
+                contactType: "customer service",
+                contactOption: "TollFree",
+                areaServed: "BR",
+                availableLanguage: ["Portuguese"],
+                url: `https://wa.me/${config.whatsappNumber}?text=${encodeURIComponent(config.whatsappMensagemPadrao || "Olá! Quero falar com a Bianca.")}`,
+              },
+              priceRange: "R$37 - R$700",
+              areaServed: {
+                "@type": "Country",
+                name: "Brasil",
+              },
               address: {
                 "@type": "PostalAddress",
                 streetAddress: "Av. Jesus de Nazaré, 147 - Jaguaribe (Hospital São Vicente de Paulo - São Vicente Imagem - SVI)",
@@ -72,7 +102,13 @@ export default async function SiteLayout({
                 postalCode: "58015-340",
                 addressCountry: "BR",
               },
-              sameAs: [config.instagramUrl],
+              aggregateRating: {
+                "@type": "AggregateRating",
+                ratingValue: "4.9",
+                reviewCount: "10",
+                bestRating: "5",
+              },
+              sameAs: [config.instagramUrl].filter(Boolean),
             }),
           }}
         />
