@@ -296,6 +296,7 @@ export async function saveConfig(formData: FormData): Promise<void> {
       mapsUrl: str(formData, "mapsUrl"),
       whatsappGrupoUrl: str(formData, "whatsappGrupoUrl"),
       address: str(formData, "address"),
+      horario: str(formData, "horario"),
       cnpj: str(formData, "cnpj"),
       ga4Id: str(formData, "ga4Id"),
       metaPixelId: str(formData, "metaPixelId"),

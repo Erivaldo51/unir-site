@@ -59,6 +59,10 @@ export default async function AdminConfiguracoesPage({
           <input id="address" name="address" defaultValue={config.address} className={inputClass} />
         </Field>
 
+        <Field label="Horário de funcionamento" htmlFor="horario">
+          <input id="horario" name="horario" defaultValue={config.horario} className={inputClass} />
+        </Field>
+
         <Field label="CNPJ" htmlFor="cnpj">
           <input id="cnpj" name="cnpj" defaultValue={config.cnpj} className={inputClass} />
         </Field>

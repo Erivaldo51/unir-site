@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { MapPin, MessageCircle } from "lucide-react";
+import { Clock, MapPin, MessageCircle } from "lucide-react";
 import { InstagramIcon } from "@/components/icons/brand-icons";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -59,6 +59,14 @@ export default async function ContatoPage() {
             <p className="text-sm text-unir-slate">{config.address}</p>
           </div>
         </a>
+
+        <div className="flex items-center gap-4 rounded-xl border border-unir-mist bg-white p-5">
+          <Clock className="size-6 text-unir-amber-press" />
+          <div>
+            <p className="font-medium text-unir-ink">Horário de funcionamento</p>
+            <p className="text-sm text-unir-slate">{config.horario}</p>
+          </div>
+        </div>
       </div>
 
       <div className="mt-10 rounded-xl bg-unir-mist/40 p-5 text-sm text-unir-slate">

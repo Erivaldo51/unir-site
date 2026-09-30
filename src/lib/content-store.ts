@@ -92,6 +92,7 @@ export type SiteContent = {
     mapsUrl: string;
     whatsappGrupoUrl: string;
     address: string;
+    horario: string;
     cnpj: string;
     ga4Id: string;
     metaPixelId: string;
