@@ -96,10 +96,10 @@ export default async function SiteLayout({
               },
               address: {
                 "@type": "PostalAddress",
-                streetAddress: "Av. Jesus de Nazaré, 147 - Jaguaribe (Hospital São Vicente de Paulo - São Vicente Imagem - SVI)",
+                streetAddress: "Av. João Machado, 1234 - Centro",
                 addressLocality: "João Pessoa",
                 addressRegion: "PB",
-                postalCode: "58015-340",
+                postalCode: "58013-522",
                 addressCountry: "BR",
               },
               openingHoursSpecification: {
