@@ -9,3 +9,4 @@ export const LEGAL_NAME = "Uniradiologia Cursos e Treinamentos";
 // redirect 308 pra cá — nunca aponte URLs (sitemap, OG, JSON-LD) pro www.
 export const SITE_URL = "https://uniradiologiacademy.com.br";
 export const MEMBROS_URL = "https://app.uniradiologiacademy.com.br";
+export const CONTACT_EMAIL = "contatocursounir@gmail.com";

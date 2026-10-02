@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 import { WhatsappTrackedLink } from "@/components/whatsapp-tracked-link";
 import { InstagramIcon, YoutubeIcon } from "@/components/icons/brand-icons";
-import { LEGAL_NAME, SITE_NAME } from "@/lib/site-config";
+import { CONTACT_EMAIL, LEGAL_NAME, SITE_NAME } from "@/lib/site-config";
 import { buildWhatsappLink } from "@/lib/whatsapp";
 import type { SiteContent } from "@/lib/content-store";
 
@@ -42,6 +42,12 @@ export function SiteFooter({
               >
                 Fale com a Bianca no WhatsApp
               </WhatsappTrackedLink>
+            </li>
+            <li className="flex items-start gap-2">
+              <Mail className="mt-0.5 size-4 shrink-0 text-unir-amber-press" />
+              <a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-unir-ink">
+                {CONTACT_EMAIL}
+              </a>
             </li>
             <li className="flex items-start gap-2">
               <MapPin className="mt-0.5 size-4 shrink-0 text-unir-amber-press" />

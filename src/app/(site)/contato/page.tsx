@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { Clock, MapPin, MessageCircle } from "lucide-react";
+import { Clock, Mail, MapPin, MessageCircle } from "lucide-react";
 import { InstagramIcon } from "@/components/icons/brand-icons";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { buildWhatsappLink } from "@/lib/whatsapp";
 import { WhatsappTrackedLink } from "@/components/whatsapp-tracked-link";
 import { getContent } from "@/lib/content-store";
+import { CONTACT_EMAIL } from "@/lib/site-config";
 
 export const metadata: Metadata = {
   title: "Contato",
@@ -44,6 +45,17 @@ export default async function ContatoPage() {
           <div>
             <p className="font-medium text-unir-ink">Instagram</p>
             <p className="text-sm text-unir-slate">{contato.textoInstagramHandle}</p>
+          </div>
+        </a>
+
+        <a
+          href={`mailto:${CONTACT_EMAIL}`}
+          className="flex items-center gap-4 rounded-xl border border-unir-mist bg-white p-5 transition-colors hover:border-unir-amber"
+        >
+          <Mail className="size-6 text-unir-amber-press" />
+          <div>
+            <p className="font-medium text-unir-ink">E-mail</p>
+            <p className="text-sm text-unir-slate">{CONTACT_EMAIL}</p>
           </div>
         </a>
 
